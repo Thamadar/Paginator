@@ -1,0 +1,58 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="using:Paginator.UI.Avalonia.Controls">
+    <Design.PreviewWith>
+        <Border
+            Padding="20">
+            <c:PaginatorControl />
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="c|PaginatorControl">
+        <Setter Property="Height" Value="45" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid
+                    Height="{TemplateBinding Height}"
+                    ColumnDefinitions="auto,auto,auto">
+                    <c:ButtonIcon
+                        x:Name="PART_FirstPageButtonIcon"
+                        Classes="short"
+                        Grid.Column="0"
+                        Margin="0,0,8,0"
+                        HorizontalContentAlignment="Center"
+                        IconContent="{StaticResource LeftArrowIcon}" />
+                    <ItemsControl
+                        x:Name="PART_PagesItemsControl"
+                        Grid.Column="1"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel
+                                    Orientation="Horizontal" Spacing="8" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Classes="default"
+                                    Height="{Binding $parent[Grid].Height}"
+                                    Content="{Binding}"
+                                    Command="{Binding $parent[ItemsControl].DataContext.SelectPageCommand}"
+                                    CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <c:ButtonIcon
+                        x:Name="PART_LastPageButtonIcon"
+                        Classes="short"
+                        Grid.Column="2"
+                        Margin="8,0,0,0"
+                        HorizontalContentAlignment="Center"
+                        IconContent="{StaticResource RightArrowIcon}" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

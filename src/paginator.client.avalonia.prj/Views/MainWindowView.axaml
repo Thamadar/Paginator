@@ -1,0 +1,52 @@
+<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="using:Paginator.UI.Avalonia.Behaviors" xmlns:c="using:Paginator.UI.Avalonia.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+    xmlns:local="using:Paginator.Client.Avalonia.Views" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Classes="NoChrome"
+    MinWidth="500" MinHeight="250"
+    d:DesignWidth="800" Icon="avares://paginator.ui.avalonia/Assets/avalonia-logo.ico"
+    mc:Ignorable="d"
+    x:Class="Paginator.Client.Avalonia.Views.MainWindowView">
+
+    <Grid
+        Margin="20,50"
+        RowDefinitions="*,auto">
+
+        <ListBox
+            Grid.Row="0"
+            Background="DarkGray"
+            DataContext="{Binding MyTestDataGridPaginator}"
+            ItemsSource="{Binding OutputItems}"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <ListBox.Styles>
+                <Style Selector="ListBoxItem">
+                    <Setter Property="Height" Value="{Binding $parent[ListBox].DataContext.ItemHeight}" />
+                </Style>
+            </ListBox.Styles>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock
+                        Text="{Binding}"
+                        FontWeight="SemiBold" Foreground="White" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <i:Interaction.Behaviors>
+                <b:PaginatorContainerHeightChangedBehavior
+                    ItemHeight="{Binding ItemHeight}" />
+            </i:Interaction.Behaviors>
+        </ListBox>
+
+        <Grid
+            Grid.Row="1"
+            Height="140"
+            Margin="0,10,0,0">
+            <c:PaginatorControl
+                HorizontalAlignment="Right" VerticalAlignment="Center"
+                DataContext="{Binding MyTestDataGridPaginator}"
+                PagesCount="{Binding PagesCount, Mode=TwoWay}"
+                SelectedPage="{Binding SelectedPage, Mode=TwoWay}" />
+        </Grid>
+    </Grid>
+</Window>
